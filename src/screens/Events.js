@@ -3,7 +3,7 @@ import axios from 'axios';
 import { View, StyleSheet, Text, ScrollView } from "react-native";
 import * as SplashScreen from 'expo-splash-screen';
 
-const baseUrl = 'http://new.lermontovka-spb.ru/';
+const baseUrl = 'http://new.lermontovka-spb.ru/ajax/get_events.php';
 
 const Events = () => {
     const [isReady, setIsReady] = useState(false);  
