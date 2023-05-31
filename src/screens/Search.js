@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { View, StyleSheet, TextInput, Text, Pressable } from 'react-native'
 
-const Search = () => {
+const Search = ({}) => {
   const [author, setAuthor] = useState('')
   const [book, setBook] = useState('')
   const [getResults, setGetResults] = useState(false)
