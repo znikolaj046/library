@@ -1,7 +1,8 @@
 import React, { useCallback, useEffect, useState } from "react";
 import axios from 'axios';
-import { View, StyleSheet, Text, ScrollView } from "react-native";
+import { View, StyleSheet, FlatList, Text, ScrollView } from "react-native";
 import * as SplashScreen from 'expo-splash-screen';
+import Post from "../components/ui/Post";
 import { DATA } from "../data";
 
 const baseUrl = 'http://new.lermontovka-spb.ru/ajax/get_events.php';
@@ -55,14 +56,20 @@ const Events = () => {
     if (!isReady) {
         return null;
     } else {
-
+      EventsArray = []
+      Object.entries(events).map((item, index) => {
+        EventsArray.push({id : item[0], name: item[1].NAME, title: item[1].PREVIEW_TEXT, image: item[1].PREVIEW_PICTURE})
+      })
     }
 
     return (  
         <View style={styles.center} onLayout={onLayoutView}>
-            {DATA.map((item) => {
-                <Text>{item.id}</Text>
-            })} 
+            <FlatList
+              data={EventsArray}
+              keyExtractor={post => post.id.toString()}
+              renderItem={({ item }) => <Post post={item} />}              
+            />
+
         </View>
     )
 }
@@ -71,6 +78,7 @@ const Events = () => {
 const styles = StyleSheet.create({
   center: {
     flex: 1,
+    width:'100%',
     flexDirection:'column',
     justifyContent: "center",
     alignItems: "center",
