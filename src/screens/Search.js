@@ -15,6 +15,7 @@ const Search = () => {
       //setValue('')
     } else {
       // error
+      setGetResults(true)
       setErrorText('Не заполнены необходимые поля')
     }
   }
