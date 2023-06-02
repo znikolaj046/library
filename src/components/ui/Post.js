@@ -1,12 +1,12 @@
 import React from 'react'
 import { View, StyleSheet, ImageBackground, Text, TouchableOpacity } from 'react-native'
 
-const baseUrl = 'http://new.lermontovka-spb.ru/';
+const baseUrl = 'https://lermontovka-spb.ru/';
 
 const Post = ({ post }) => {
     
   return (
-    
+    <TouchableOpacity>
       <View style={styles.post}>
         <ImageBackground style={styles.image} source={{ uri: baseUrl + post.image }}>
           <View style={styles.textWrap}>
@@ -16,7 +16,7 @@ const Post = ({ post }) => {
           </View>
         </ImageBackground>
       </View>
-    
+    </TouchableOpacity>
   )  
 }
 
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     overflow: 'hidden'
   },
-  image: {
+  image: {    
     width: '100%',
     height: 300
   },

@@ -1,16 +1,38 @@
 import React, { useState } from 'react'
-import { View, StyleSheet, TextInput, Text, Pressable } from 'react-native'
+import { View, StyleSheet, TextInput, Text, Pressable, FlatList } from 'react-native'
+import axios from 'axios';
+import Book from '../components/ui/Book';
+import { WebView } from 'react-native-webview';
+const source = axios.CancelToken.source();
+
+const baseUrl = 'https://lermontovka-spb.ru/ajax/search_irbis_mobile.php';
 
 const Search = ({}) => {
   const [author, setAuthor] = useState('')
   const [book, setBook] = useState('')
-  const [getResults, setGetResults] = useState(false)
+  const [getResults, setGetResults] = useState({})
   const [errorText, setErrorText] = useState('');
+
+  async function searchData() {
+    const searchUrl = baseUrl + '?NAME=' + book.trim() + '&AUTHOR=' + author.trim();
+      const response = await axios.get(searchUrl, { cancelToken: source.token });
+      if (response.status === 200) {
+          setGetResults(response.data)
+          
+          return;
+      } else {
+          console.log(response)
+          console.log(searchUrl)
+          throw new Error("Failed to fetch users");
+      }
+  }
 
   const pressHandler = () => {
     setErrorText('')
     if (author.trim() || book.trim()) {
 
+      searchData()
+      
       //onSubmit(value)
       //setValue('')
     } else {
@@ -22,26 +44,36 @@ const Search = ({}) => {
 
   return (
     <View style={styles.block}>
-      <View style={styles.formgroup}>
-        <TextInput
-          style={styles.input}
-          onChangeText={setAuthor}
-          value={author}
-          placeholder='Введите автора...'
-        />
-      </View>
-      <View style={styles.formgroup}>
-        <TextInput
-          style={styles.input}
-          onChangeText={setBook}
-          value={book}
-          placeholder='Введите название книги...'
-        />
-      </View>
-      <Pressable style={styles.button} onPress={pressHandler}>
-        <Text style={styles.button_text}>Поиск</Text>
-      </Pressable>
+      
+        <View style={styles.formgroup}>
+          <TextInput
+            style={styles.input}
+            onChangeText={setAuthor}
+            value={author}
+            placeholder='Введите автора...'
+          />
+        </View>
+        <View style={styles.formgroup}>
+          <TextInput
+            style={styles.input}
+            onChangeText={setBook}
+            value={book}
+            placeholder='Введите название книги...'
+          />
+        </View>
+        <Pressable style={styles.button} onPress={pressHandler}>
+          <Text style={styles.button_text}>Поиск</Text>
+        </Pressable>
+      
       <View ><Text style={styles.errorText}>{errorText}</Text></View>
+      
+
+      <FlatList
+        data={getResults}
+        keyExtractor={book => book.id.toString()}
+        renderItem={({ item }) => <Book book={item} />}              
+      />
+
     </View>
   )
 }

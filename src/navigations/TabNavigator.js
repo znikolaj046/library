@@ -14,15 +14,6 @@ const TabNavigator = () => {
   return (
     <NavigationContainer>
       <Tab.Navigator>
-      <Tab.Screen name="Events" options={({
-            title: "Мероприятия", 
-            tabBarIcon: info => (
-              <Ionicons name='ios-star' size={25} color="#252F49" />
-            ),
-            headerStyle : styles.headerStyle,
-            headerTitleStyle : styles.headerTitleStyle
-        })} component={Events} />
-
         <Tab.Screen name="Search" options={({
             title:'Поиск книг', 
             tabBarIcon: info => (
@@ -31,7 +22,15 @@ const TabNavigator = () => {
             headerStyle : styles.headerStyle,
             headerTitleStyle : styles.headerTitleStyle
         })} component={Search} />
-        
+        <Tab.Screen name="Events" options={({
+              title: "Мероприятия", 
+              tabBarIcon: info => (
+                <Ionicons name='ios-star' size={25} color="#252F49" />
+              ),
+              headerStyle : styles.headerStyle,
+              headerTitleStyle : styles.headerTitleStyle
+          })} component={Events} />
+
       </Tab.Navigator>
     </NavigationContainer>
   );

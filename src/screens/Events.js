@@ -1,11 +1,10 @@
 import React, { useCallback, useEffect, useState } from "react";
 import axios from 'axios';
-import { View, StyleSheet, FlatList, Text, ScrollView } from "react-native";
+import { View, StyleSheet, FlatList } from "react-native";
 import * as SplashScreen from 'expo-splash-screen';
 import Post from "../components/ui/Post";
-import { DATA } from "../data";
 
-const baseUrl = 'http://new.lermontovka-spb.ru/ajax/get_events.php';
+const baseUrl = 'https://lermontovka-spb.ru/ajax/get_events.php';
 const source = axios.CancelToken.source();
 
 const Events = () => {
@@ -20,11 +19,12 @@ const Events = () => {
             // Pre-load fonts, make any API calls you need to do here            
             // Artificially delay for two seconds to simulate a slow loading
             // experience. Please remove this if you copy and paste the code!
+            setEvents({})
             const response = await axios.get(baseUrl, { cancelToken: source.token });
             if (response.status === 200) {
                 const event_data = response.data
 
-                setEvents(event_data)                
+                setEvents(event_data)
                 setIsReady(true);
                 return;
             } else {
@@ -69,7 +69,6 @@ const Events = () => {
               keyExtractor={post => post.id.toString()}
               renderItem={({ item }) => <Post post={item} />}              
             />
-
         </View>
     )
 }
@@ -80,9 +79,10 @@ const styles = StyleSheet.create({
     flex: 1,
     width:'100%',
     flexDirection:'column',
-    justifyContent: "center",
-    alignItems: "center",
-    textAlign: "center",
+    justifyContent: "space-between",
+    alignSelf:'center',
+    paddingHorizontal:15,
+    paddingTop:15
   },
 });
 
