@@ -2,7 +2,6 @@ import { StyleSheet, View } from 'react-native';
 import { Navbar } from './src/Navbar'
 import { Provider } from 'react-redux';
 import TabNavigator from './src/navigations/TabNavigator'
-import Eventtest from './src/screens/Eventtest';
 
 export default function App() {
   return (        

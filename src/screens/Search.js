@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
-import { View, StyleSheet, TextInput, Text, Pressable, FlatList } from 'react-native'
+import { View, StyleSheet, TextInput, Text, TouchableOpacity, FlatList } from 'react-native'
 import axios from 'axios';
 import Book from '../components/ui/Book';
-import { WebView } from 'react-native-webview';
 const source = axios.CancelToken.source();
 
 const baseUrl = 'https://lermontovka-spb.ru/ajax/search_irbis_mobile.php';
@@ -17,8 +16,9 @@ const Search = ({}) => {
     const searchUrl = baseUrl + '?NAME=' + book.trim() + '&AUTHOR=' + author.trim();
       const response = await axios.get(searchUrl, { cancelToken: source.token });
       if (response.status === 200) {
-          setGetResults(response.data)
-          
+
+          const test = response.data
+          setGetResults(test)
           return;
       } else {
           console.log(response)
@@ -61,9 +61,9 @@ const Search = ({}) => {
             placeholder='Введите название книги...'
           />
         </View>
-        <Pressable style={styles.button} onPress={pressHandler}>
+        <TouchableOpacity style={styles.button} onPress={pressHandler}>
           <Text style={styles.button_text}>Поиск</Text>
-        </Pressable>
+        </TouchableOpacity>
       
       <View ><Text style={styles.errorText}>{errorText}</Text></View>
       

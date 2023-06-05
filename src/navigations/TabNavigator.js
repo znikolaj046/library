@@ -3,7 +3,6 @@ import { StyleSheet } from 'react-native'
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from '@react-navigation/native';
 import Events from "../screens/Events";
-import Eventtest from "../screens/Eventtest";
 import Search from "../screens/Search";
 import { Ionicons } from '@expo/vector-icons'
 
